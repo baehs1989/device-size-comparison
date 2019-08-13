@@ -121,12 +121,7 @@ class AutoCompleteText extends Component {
     //document.querySelector("ul").scrollTop = 80
     // console.log(document.querySelector("ul").scrollTop)
     //console.log(document.querySelector("li[id='"   + this.state.activeSuggestion +    "']").scrollBottom)
-    let activePosition = this.state.activeSuggestion ? this.state.activeSuggestion : 0
-    console.log(activePosition)
-    if (this.state.filteredSuggestions.length > 0){
-      document.querySelector("ul").scrollTop = activePosition * 40
-      console.log(document.querySelector("ul").scrollTop)
-    }
+
 
 
     // User pressed the enter key, update the input and close the
@@ -155,6 +150,7 @@ class AutoCompleteText extends Component {
       if (activeSuggestion === 0) {
         return;
       }
+      
       this.setState({ activeSuggestion: activeSuggestion - 1 });
     }
     // User pressed the down arrow, increment the index
@@ -166,6 +162,15 @@ class AutoCompleteText extends Component {
 
       this.setState({ activeSuggestion: activeSuggestion + 1 });
     }
+
+    let activePosition = this.state.activeSuggestion ? this.state.activeSuggestion : 0
+    activePosition-=1
+    console.log(activePosition)
+    if (this.state.filteredSuggestions.length > 0){
+      document.querySelector("ul").scrollTop = activePosition * 50
+      console.log(document.querySelector("ul").scrollTop)
+    }
+
   };
 
   render() {

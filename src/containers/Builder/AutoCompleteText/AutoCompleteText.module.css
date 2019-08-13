@@ -28,8 +28,9 @@
 
 }
 
-.suggestions li {
+ul.suggestions li {
   padding: 0.5rem;
+  box-sizing: border-box;
 }
 
 .suggestion_active,
