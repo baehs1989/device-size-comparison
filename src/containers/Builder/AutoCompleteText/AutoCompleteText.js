@@ -22,7 +22,8 @@ class AutoCompleteText extends Component {
       // What the user has entered
       userInput: "",
       // First visited
-      firstVisit: true
+      firstVisit: true,
+      scrollPosition: 0
     };
 
   }
@@ -49,7 +50,7 @@ class AutoCompleteText extends Component {
     var device = params.get(this.props.id);
 
     if (device && this.state.firstVisit){
-      
+
       if (this.state.userInput === ""){
         // this.retreieveData(device).then(() => {
         //   console.log("HI")
@@ -117,6 +118,17 @@ class AutoCompleteText extends Component {
 
     const { activeSuggestion } = this.state;
 
+    //document.querySelector("ul").scrollTop = 80
+    // console.log(document.querySelector("ul").scrollTop)
+    //console.log(document.querySelector("li[id='"   + this.state.activeSuggestion +    "']").scrollBottom)
+    let activePosition = this.state.activeSuggestion ? this.state.activeSuggestion : 0
+    console.log(activePosition)
+    if (this.state.filteredSuggestions.length > 0){
+      document.querySelector("ul").scrollTop = activePosition * 40
+      console.log(document.querySelector("ul").scrollTop)
+    }
+
+
     // User pressed the enter key, update the input and close the
     // suggestions
     if (e.keyCode === 13) {
@@ -143,14 +155,15 @@ class AutoCompleteText extends Component {
       if (activeSuggestion === 0) {
         return;
       }
-
       this.setState({ activeSuggestion: activeSuggestion - 1 });
     }
     // User pressed the down arrow, increment the index
     else if (e.keyCode === 40) {
+
       if (activeSuggestion === this.state.length - 1 ) {
         return;
       }
+
       this.setState({ activeSuggestion: activeSuggestion + 1 });
     }
   };
@@ -161,7 +174,7 @@ class AutoCompleteText extends Component {
     if (this.state.showSuggestions && this.state.userInput) {
       if (Object.keys(this.state.filteredSuggestions).length) {
         suggestionsListComponent = (
-          <ul className={classes.suggestions}>
+          <ul className={classes.suggestions + " list"}>
             {this.state.filteredSuggestions.map((suggestion,index) => {
               let className;
 
@@ -192,14 +205,14 @@ class AutoCompleteText extends Component {
           <span className="input-group-text" id="inputGroup-sizing-default">{this.props.name}</span>
         </div>
         <input
-          style={{
-                "WebkitTouchCallout": "none",
-                "WebkitUserSelect": "none",
-                "KhtmlUserSelect": "none",
-                "MozUserSelect": "none",
-                "MsUserSelect": "none",
-                "UserSelect": "none"
-          }}
+          // style={{
+          //       "WebkitTouchCallout": "none",
+          //       "WebkitUserSelect": "none",
+          //       "KhtmlUserSelect": "none",
+          //       "MozUserSelect": "none",
+          //       "MsUserSelect": "none",
+          //       "UserSelect": "none"
+          // }}
           autoComplete="off"
           onPaste={e => e.preventDefault()}
           type="text"
