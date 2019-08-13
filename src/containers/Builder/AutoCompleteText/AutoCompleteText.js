@@ -150,8 +150,9 @@ class AutoCompleteText extends Component {
       if (activeSuggestion === 0) {
         return;
       }
-      
+
       this.setState({ activeSuggestion: activeSuggestion - 1 });
+      this.setState({userInput: this.state.filteredSuggestions[activeSuggestion-1].name})
     }
     // User pressed the down arrow, increment the index
     else if (e.keyCode === 40) {
@@ -159,21 +160,24 @@ class AutoCompleteText extends Component {
       if (activeSuggestion === this.state.length - 1 ) {
         return;
       }
-
+      console.log("b", this.state.activeSuggestion)
       this.setState({ activeSuggestion: activeSuggestion + 1 });
+      this.setState({userInput: this.state.filteredSuggestions[activeSuggestion+1].name})
+      console.log("a", this.state.activeSuggestion)
     }
 
     let activePosition = this.state.activeSuggestion ? this.state.activeSuggestion : 0
     activePosition-=1
     console.log(activePosition)
     if (this.state.filteredSuggestions.length > 0){
-      document.querySelector("ul").scrollTop = activePosition * 50
+      document.querySelector("ul").scrollTop = activePosition * 45
       console.log(document.querySelector("ul").scrollTop)
     }
 
   };
 
   render() {
+    console.log("f", this.state.activeSuggestion)
     let suggestionsListComponent;
 
     if (this.state.showSuggestions && this.state.userInput) {
