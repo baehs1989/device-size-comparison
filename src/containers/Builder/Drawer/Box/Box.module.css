@@ -1,0 +1,11 @@
+.Box {
+  position: absolute;
+  border: 1px black solid;
+  width: 60px;
+  height: 50px;
+  bottom :5%;
+  background: rgba(189, 29, 29, 0.71);
+  transform: skewY(-10deg);
+  transform-origin: 0 0;
+  box-sizing: border-box;
+}
