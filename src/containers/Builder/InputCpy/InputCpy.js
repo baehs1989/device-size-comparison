@@ -52,7 +52,6 @@ class SearchContainer extends Component {
 
     render (){
         var full_url = window.location.origin //window.location.href
-        console.log(this.props.drawer)
         var params = {}
         for (let device of Object.keys(this.props.drawer)){
           if (this.props.drawer[device]){

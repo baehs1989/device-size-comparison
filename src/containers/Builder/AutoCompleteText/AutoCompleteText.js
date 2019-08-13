@@ -47,10 +47,9 @@ class AutoCompleteText extends Component {
     var search = window.location.search;
     var params = new URLSearchParams(search);
     var device = params.get(this.props.id);
-    console.log(device)
 
     if (device && this.state.firstVisit){
-      console.log(device)
+      
       if (this.state.userInput === ""){
         // this.retreieveData(device).then(() => {
         //   console.log("HI")
