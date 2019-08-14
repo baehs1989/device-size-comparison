@@ -45,6 +45,9 @@ class AutoCompleteText extends Component {
   }
 
   componentDidMount(){
+
+
+
     var search = window.location.search;
     var params = new URLSearchParams(search);
     var device = params.get(this.props.id);
@@ -147,7 +150,7 @@ class AutoCompleteText extends Component {
     }
     // User pressed the up arrow, decrement the index
     else if (e.keyCode === 38) {
-      if (activeSuggestion === 0) {
+      if (activeSuggestion === 0 || this.state.userInput.length ===0) {
         return;
       }
 
@@ -157,27 +160,37 @@ class AutoCompleteText extends Component {
     // User pressed the down arrow, increment the index
     else if (e.keyCode === 40) {
 
-      if (activeSuggestion === this.state.length - 1 ) {
+      if (activeSuggestion === this.state.length - 1 || this.state.userInput.length ===0) {
         return;
       }
-      console.log("b", this.state.activeSuggestion)
       this.setState({ activeSuggestion: activeSuggestion + 1 });
       this.setState({userInput: this.state.filteredSuggestions[activeSuggestion+1].name})
-      console.log("a", this.state.activeSuggestion)
     }
 
-    let activePosition = this.state.activeSuggestion ? this.state.activeSuggestion : 0
-    activePosition-=1
-    console.log(activePosition)
-    if (this.state.filteredSuggestions.length > 0){
-      document.querySelector("ul").scrollTop = activePosition * 45
-      console.log(document.querySelector("ul").scrollTop)
-    }
+    // let activePosition = this.state.activeSuggestion ? this.state.activeSuggestion : 0
+    // activePosition-=1
+    // if (this.state.filteredSuggestions.length > 0){
+    //   document.querySelector("ul").scrollTop = activePosition * 45
+    // }
 
   };
 
   render() {
-    console.log("f", this.state.activeSuggestion)
+    //console.log(this.state.activeSuggestion)
+    let totalHeight = 0
+    let activePosition = this.state.activeSuggestion ? this.state.activeSuggestion : 0
+    for (let i = 0 ; i < activePosition; i++){
+      console.log(document.querySelector("li[id='"   + i +    "']").offsetHeight)
+      totalHeight += document.querySelector("li[id='"   + i +    "']").offsetHeight
+    }
+    if (this.state.showSuggestions && this.state.userInput){
+      console.log(totalHeight)
+      if (document.querySelector("ul")){
+        document.querySelector("ul").scrollTop = totalHeight
+      }
+    }
+
+
     let suggestionsListComponent;
 
     if (this.state.showSuggestions && this.state.userInput) {
